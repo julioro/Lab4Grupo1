@@ -25,6 +25,8 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         // Variable con conexión a rama raíz (lab4grupo1/)
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+
     }
 
     // Crear nueva publicación
