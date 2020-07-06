@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void success(Result<TwitterSession> result) {
-                Toast.makeText(LoginActivity.this, "Signed in to twitter successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Logueo exitoso", Toast.LENGTH_LONG).show();
                 signInToFirebaseWithTwitterSession(result.data);
                 mTwitterBtn.setVisibility(View.VISIBLE);
                 mIndeterminateProgressBar.setVisibility(View.VISIBLE);
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void failure(TwitterException exception) {
-                Toast.makeText(LoginActivity.this, "Login failed. No internet or No Twitter app found on your phone", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, " Logueo falló, no tiene internet o no tiene instalado Twitter", Toast.LENGTH_LONG).show();
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 mIndeterminateProgressBar.setVisibility(View.GONE);
                 UpdateTwitterButton();
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-        }
+    }
 
 
 
@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI() {
         Toast.makeText(LoginActivity.this, "You're logged in", Toast.LENGTH_LONG);
         //Sending user to new screen after successful login
-        Intent mainActivity = new Intent(LoginActivity.this, LoginActivity.class);
+        Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(mainActivity);
         finish();
     }
@@ -138,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void UpdateTwitterButton(){
         if (TwitterCore.getInstance().getSessionManager().getActiveSession() == null){
-          // mTwitterBtn.setVisibility(View.INVISIBLE);
+            // mTwitterBtn.setVisibility(View.INVISIBLE);
         }
         else{
             mTwitterBtn.setVisibility(View.GONE);
@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-    }
+}
 
 
 
