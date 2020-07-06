@@ -2,7 +2,7 @@ package com.pucp.lab4egb.entities;
 
 import java.util.ArrayList;
 
-public class Photo {
+public class Publication {
 
     private String user;
     private String image;
