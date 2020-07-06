@@ -4,11 +4,20 @@ import java.util.ArrayList;
 
 public class Publication {
 
+    private String publicationId;
     private String user;
     private String image;
     private String date;
     private String description;
-    private ArrayList<Comment> comments;
+    private String comments;
+
+    public String getPublicationId() {
+        return publicationId;
+    }
+
+    public void setPublicationId(String publicationId) {
+        this.publicationId = publicationId;
+    }
 
     public String getUser() {
         return user;
@@ -42,11 +51,11 @@ public class Publication {
         this.description = description;
     }
 
-    public ArrayList<Comment> getComments() {
+    public String getComments() {
         return comments;
     }
 
-    public void setComments(ArrayList<Comment> comments) {
+    public void setComments(String comments) {
         this.comments = comments;
     }
 }

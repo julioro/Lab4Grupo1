@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewTitleIncidenceDescription"
+        android:id="@+id/textViewTitlePublicationDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <EditText
-        android:id="@+id/editTextIncidenceDescription"
+        android:id="@+id/editTextPublicationDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -40,8 +40,8 @@
         android:inputType="textMultiLine"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewTitleIncidenceDescription"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitleIncidenceDescription" />
+        app:layout_constraintStart_toStartOf="@+id/textViewTitlePublicationDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitlePublicationDescription" />
 
     <TextView
         android:id="@+id/textViewTitleImage"
@@ -50,10 +50,10 @@
         android:layout_marginTop="16dp"
         android:text="Seleccionar Foto"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextIncidenceDescription"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPublicationDescription"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextIncidenceDescription"
-        app:layout_constraintTop_toBottomOf="@+id/editTextIncidenceDescription" />
+        app:layout_constraintStart_toStartOf="@+id/editTextPublicationDescription"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPublicationDescription" />
 
     <ImageView
         android:id="@+id/imageViewAttachPhoto"
@@ -68,7 +68,7 @@
         tools:ignore="VectorDrawableCompat" />
 
     <Button
-        android:id="@+id/buttonRegisterIncidence"
+        android:id="@+id/buttonUploadPublication"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
