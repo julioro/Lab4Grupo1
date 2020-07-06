@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreatePublicationActivity">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Subir Foto"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTitleIncidenceDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Descripción"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+    <EditText
+        android:id="@+id/editTextIncidenceDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Descripción de la incidencia"
+        android:inputType="textMultiLine"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitleIncidenceDescription"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleIncidenceDescription" />
+
+    <TextView
+        android:id="@+id/textViewTitleImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Seleccionar Foto"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/editTextIncidenceDescription"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextIncidenceDescription"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIncidenceDescription" />
+
+    <ImageView
+        android:id="@+id/imageViewAttachPhoto"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTitleImage"
+        app:layout_constraintStart_toEndOf="@+id/textViewTitleImage"
+        app:layout_constraintTop_toTopOf="@+id/textViewTitleImage"
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/ic_add_photo"
+        tools:ignore="VectorDrawableCompat" />
+
+    <Button
+        android:id="@+id/buttonRegisterIncidence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="createPublication"
+        android:text="Subir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleImage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
