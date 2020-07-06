@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Lab4Grupo1</string>
+    <string name="facebook_app_id">737720130336430</string>
+    <string name="fb_login_protocol_scheme">fb737720130336430</string>
+    <string name="twitter_consumer_key" translatable="false">TB0nzeEPHf6mGLSXJ23MLABLC</string>
+    <string name="twitter_consumer_secret" translatable="false">DM9BKYldQGMz7h5Sxp6p3XgSVpS1UEND0mnQBWtODwllLRJyX8</string>
 </resources>
