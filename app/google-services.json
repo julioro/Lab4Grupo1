@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "516594446027",
+    "firebase_url": "https://lab4grupo1.firebaseio.com",
+    "project_id": "lab4grupo1",
+    "storage_bucket": "lab4grupo1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516594446027:android:98ebce264d4c5a592f354e",
+        "android_client_info": {
+          "package_name": "com.pucp.lab4egb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516594446027-hiptt6h94mo6ughmil5ukh4nqk722bip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATDVzF2_sqCS5MDYBjkLCzVvcB3x-tjQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516594446027-hiptt6h94mo6ughmil5ukh4nqk722bip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
