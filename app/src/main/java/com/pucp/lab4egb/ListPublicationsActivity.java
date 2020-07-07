@@ -108,7 +108,7 @@ public class ListPublicationsActivity extends AppCompatActivity {
 
 
     public void publicationValueEventListener(){
-        databaseReference.child("userId1").addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
+        databaseReference.child("publications").addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // cada vez que hay un cambio en Firebase
                 Log.d("dataSnapshotJson",dataSnapshot.getValue().toString()); // dataSnapshot contiene el json (equivalente a gson.fromJson)

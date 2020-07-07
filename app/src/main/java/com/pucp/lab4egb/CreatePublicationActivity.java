@@ -39,7 +39,6 @@ public class CreatePublicationActivity extends AppCompatActivity {
         GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
         Publication publication = new Publication(); // Nueva publicación
 
-        String userid = "userId1"; // Se deberá cambiar por el Id pasado por Auth (id del usuario logueado)
 
         // Configuración de parámetros de la publicación
         publication.setUserName("userName1");
@@ -49,7 +48,7 @@ public class CreatePublicationActivity extends AppCompatActivity {
         publication.setComments("3");
 
         // Guardar publicación en DB
-        DatabaseReference path = databaseReference.child(userid).push(); // configurar la ruta para imprimir en DB
+        DatabaseReference path = databaseReference.child("publications").push(); // configurar la ruta para imprimir en DB
         String publicationId = path.getKey(); // obtenemos el instanceId del push
         publication.setPublicationId(publicationId);
         path.setValue(publication)
