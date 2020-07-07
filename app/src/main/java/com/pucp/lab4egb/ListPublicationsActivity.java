@@ -46,9 +46,9 @@ public class ListPublicationsActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        publicationValueEventListener(); // Obtener lista completa de publicaciones por usuario
+        publicationValueEventListener(); // Obtener lista completa de publicaciones
 
-        //publicationChildEventListener(); // Obtener solo publicaciones modificadas/creadas por usuario
+        //publicationChildEventListener(); // Obtener solo publicaciones modificadas/creadas
 
         buildPublicationRecyclerView();
     }
@@ -59,6 +59,7 @@ public class ListPublicationsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // cada vez que hay un cambio en Firebase
                 Log.d("dataSnapshotJson",dataSnapshot.getValue().toString()); // dataSnapshot contiene el json (equivalente a gson.fromJson)
 
+                publications.clear(); // vaciar el ArrayList de publicaciones, para llenar la lista nuevamente
                 // Iterar por todas las publicaciones del JSON
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
                     Publication publication = postSnapshot.getValue(Publication.class);
