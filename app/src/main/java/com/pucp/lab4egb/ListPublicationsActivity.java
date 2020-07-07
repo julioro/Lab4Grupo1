@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -125,4 +130,35 @@ public class ListPublicationsActivity extends AppCompatActivity {
 
     }
 
+    // Inflar appbar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar,menu);
+        return true;
+    }
+
+    // Al hacer clic en el botón '+' de appbar abrir CreatePublicationActivity
+    int LAUNCH_SECOND_ACTIVITY = 1;
+    public void actionAddPubAppBar(MenuItem item){
+        // Intent i = new Intent(this,CreatePublicationActivity.class);
+        // startActivity(i);
+        Intent i = new Intent(this, CreatePublicationActivity.class);
+        startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
+    }
+
+    // Al regresar del Activity CreatePublicationActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK){
+                publicationValueEventListener();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+                Toast.makeText(this, "onActivityResult RESULT_CANCELED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

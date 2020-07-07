@@ -9,14 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListPublicationsActivity"></activity>
-        <activity android:name=".CreatePublicationActivity">
+        <activity android:name=".ListPublicationsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CreatePublicationActivity"
+            android:parentActivityName="com.pucp.lab4egb.ListPublicationsActivity"></activity>
         <activity android:name=".MainActivity" />
     </application>
 

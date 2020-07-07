@@ -3,6 +3,8 @@ package com.pucp.lab4egb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,9 +30,8 @@ public class CreatePublicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_publication);
 
-        // Variable con conexión a rama raíz (lab4grupo1/)
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        GetDateTimeFromFirebaseFunctions();
+        databaseReference = FirebaseDatabase.getInstance().getReference(); // Variable con conexión a rama raíz (lab4grupo1/)
+        GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
     }
 
     // Crear nueva publicación
@@ -66,8 +67,12 @@ public class CreatePublicationActivity extends AppCompatActivity {
                         Log.e("publicationSaveFail","Guardado de publication fallido",e.getCause());
                     }
                 });
+
+        // retornar a ListPublicationsActivity
+        intentListPublications();
     }
 
+    // Obtener Hora y fecha de Firebase Functions
     public void GetDateTimeFromFirebaseFunctions(){
         FirebaseFunctions.getInstance().getHttpsCallable("getTime")
                 .call().addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
@@ -84,5 +89,13 @@ public class CreatePublicationActivity extends AppCompatActivity {
                 // Log.d("fecha",calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
             }
         });
+    }
+
+    // Volver al Activity que abrió esta Activity mediante un Intent
+    public void intentListPublications(){
+        Intent returnIntent = new Intent();
+        //returnIntent.putExtra("result",result);
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
     }
 }
