@@ -35,5 +35,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.3.0' // Real time Database
     implementation 'com.google.android.material:material:1.1.0'// MaterialDesign
     implementation 'androidx.recyclerview:recyclerview:1.0.0' // RecyclerView
+    implementation 'com.google.firebase:firebase-functions:19.0.2' // Friebase Functions
 
 }

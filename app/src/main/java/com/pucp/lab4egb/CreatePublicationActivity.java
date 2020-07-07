@@ -36,10 +36,11 @@ public class CreatePublicationActivity extends AppCompatActivity {
         String userid = "userId1"; // Se deberá cambiar por el Id pasado por Auth (id del usuario logueado)
 
         // Configuración de parámetros de la Incidencia
+        publication.setUserName("userName1");
         publication.setDescription(((EditText) findViewById(R.id.editTextPublicationDescription)).getText().toString());
         publication.setImage("image1"); // Deberá obtenerse de FB Storage
         publication.setDate("27/05/2020");
-        publication.setComments("Comentarios");
+        publication.setComments("3");
 
         // Guardar publicación en DB
         DatabaseReference path = databaseReference.child(userid).push(); // configurar la ruta para imprimir en DB
