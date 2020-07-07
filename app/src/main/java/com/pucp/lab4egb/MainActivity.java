@@ -27,16 +27,21 @@ import com.twitter.sdk.android.core.TwitterSession;
 import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
+
     DatabaseReference mDatabase;
+
     FirebaseAuth mAuth;
     Button logoutBtn;
 
     String nombre="";
     String correo="";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -88,5 +93,7 @@ public class MainActivity extends AppCompatActivity {
         Intent mainActivity = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(mainActivity);
         finish();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
 }

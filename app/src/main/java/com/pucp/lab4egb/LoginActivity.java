@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
                 if (firebaseAuth.getCurrentUser() != null){
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, ListPublicationsActivity.class));
                 }
             }
         };
@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI() {
         Toast.makeText(LoginActivity.this, "You're logged in", Toast.LENGTH_LONG);
         //Sending user to new screen after successful login
-        Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
+        Intent mainActivity = new Intent(LoginActivity.this, ListPublicationsActivity.class);
         startActivity(mainActivity);
         finish();
     }
