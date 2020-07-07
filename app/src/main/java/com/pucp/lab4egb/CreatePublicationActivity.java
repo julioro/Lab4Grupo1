@@ -12,11 +12,16 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 import com.pucp.lab4egb.entities.Publication;
+
+import java.util.Calendar;
 
 public class CreatePublicationActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
+    Calendar calendar; // contendrá la hora y fecha obtenida de Firebase Functions
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,21 +30,21 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         // Variable con conexión a rama raíz (lab4grupo1/)
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
-
+        GetDateTimeFromFirebaseFunctions();
     }
 
     // Crear nueva publicación
     public void createPublication(View view){
-        Publication publication = new Publication();
+        GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
+        Publication publication = new Publication(); // Nueva publicación
 
         String userid = "userId1"; // Se deberá cambiar por el Id pasado por Auth (id del usuario logueado)
 
         // Configuración de parámetros de la Incidencia
         publication.setUserName("userName1");
         publication.setDescription(((EditText) findViewById(R.id.editTextPublicationDescription)).getText().toString());
+        publication.setDate(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
         publication.setImage("image1"); // Deberá obtenerse de FB Storage
-        publication.setDate("27/05/2020");
         publication.setComments("3");
 
         // Guardar publicación en DB
@@ -61,5 +66,23 @@ public class CreatePublicationActivity extends AppCompatActivity {
                         Log.e("publicationSaveFail","Guardado de publication fallido",e.getCause());
                     }
                 });
+    }
+
+    public void GetDateTimeFromFirebaseFunctions(){
+        FirebaseFunctions.getInstance().getHttpsCallable("getTime")
+                .call().addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+            @Override
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                long timestamp = (long) httpsCallableResult.getData();
+                Log.d("timestamp",Long.toString(timestamp));
+
+                calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(timestamp);
+                // Log.d("fechaDay", Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)));
+                // Log.d("fechaMonth", Integer.toString(calendar.get(Calendar.MONTH)+1));
+                // Log.d("fechaYear", Integer.toString(calendar.get(Calendar.YEAR)));
+                // Log.d("fecha",calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
+            }
+        });
     }
 }

@@ -46,22 +46,6 @@ public class ListPublicationsActivity extends AppCompatActivity {
         //publicationChildEventListener(); // Obtener solo publicaciones modificadas/creadas por usuario
 
         buildPublicationRecyclerView();
-
-        FirebaseFunctions.getInstance().getHttpsCallable("getTime")
-                .call().addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-            @Override
-            public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                long timestamp = (long) httpsCallableResult.getData();
-                Log.d("timestamp",Long.toString(timestamp));
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(timestamp);
-                Log.d("mYear", Integer.toString(calendar.get(Calendar.YEAR)));
-                Log.d("mMonth", Integer.toString(calendar.get(Calendar.MONTH)+1));
-                Log.d("mDay", Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)));
-            }
-        });
-
     }
 
     public void publicationValueEventListener(){
