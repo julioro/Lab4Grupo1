@@ -40,7 +40,7 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         String userid = "userId1"; // Se deberá cambiar por el Id pasado por Auth (id del usuario logueado)
 
-        // Configuración de parámetros de la Incidencia
+        // Configuración de parámetros de la publicación
         publication.setUserName("userName1");
         publication.setDescription(((EditText) findViewById(R.id.editTextPublicationDescription)).getText().toString());
         publication.setDate(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
