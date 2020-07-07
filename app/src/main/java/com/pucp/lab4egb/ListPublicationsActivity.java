@@ -108,7 +108,7 @@ public class ListPublicationsActivity extends AppCompatActivity {
 
 
     public void publicationValueEventListener(){
-        databaseReference.child("userId1").addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
+        databaseReference.child("publications").addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // cada vez que hay un cambio en Firebase
                 Log.d("dataSnapshotJson",dataSnapshot.getValue().toString()); // dataSnapshot contiene el json (equivalente a gson.fromJson)
@@ -195,14 +195,13 @@ public class ListPublicationsActivity extends AppCompatActivity {
         return true;
     }
 
-
-
     // Al hacer clic en el botón '+' de appbar abrir CreatePublicationActivity
     int LAUNCH_SECOND_ACTIVITY = 1;
     public void actionAddPubAppBar(MenuItem item){
         // Intent i = new Intent(this,CreatePublicationActivity.class);
         // startActivity(i);
         Intent i = new Intent(this, CreatePublicationActivity.class);
+        i.putExtra("loggedusername",nombre); // extra el del nombre del usuario logueado
         startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
     }
 
