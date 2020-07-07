@@ -8,8 +8,7 @@
         android:title="Add Publication"
         app:showAsAction="always" />
     <item
-        android:id="name"
-        android:onClick="nameItem"
+        android:id="@+id/name"
         android:title="Nombre"
         app:showAsAction="always" />
 

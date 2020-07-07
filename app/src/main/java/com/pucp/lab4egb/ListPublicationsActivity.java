@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.pucp.lab4egb.entities.Publication;
+import com.twitter.sdk.android.core.SessionManager;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterSession;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -45,11 +50,14 @@ public class ListPublicationsActivity extends AppCompatActivity {
     String nombre="";
     String correo="";
     FirebaseAuth mAuth;
-
+    Button logoutBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_publications);
+
+        //cerrar sesion
+        logoutBtn = findViewById(R.id.logout_button);
 
         //Obteniendo usuario y correo
         mAuth = FirebaseAuth.getInstance();
@@ -66,6 +74,38 @@ public class ListPublicationsActivity extends AppCompatActivity {
 
         buildPublicationRecyclerView();
     }
+
+    public void CerrarSesion(View view){
+        SessionManager<TwitterSession> sessionManager = TwitterCore.getInstance().getSessionManager();
+        if (sessionManager.getActiveSession() != null){
+            sessionManager.clearActiveSession();
+            mAuth.signOut();
+        }
+
+        mAuth.signOut();
+        updateUI();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            updateUI();
+        }
+    }
+
+    private void updateUI() {
+        Toast.makeText(ListPublicationsActivity.this, "You're logged out", Toast.LENGTH_LONG);
+
+        Intent mainActivity = new Intent(ListPublicationsActivity.this, LoginActivity.class);
+        startActivity(mainActivity);
+        finish();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+    }
+
 
     public void publicationValueEventListener(){
         databaseReference.child("userId1").addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
