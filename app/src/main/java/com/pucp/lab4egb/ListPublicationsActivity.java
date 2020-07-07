@@ -195,14 +195,13 @@ public class ListPublicationsActivity extends AppCompatActivity {
         return true;
     }
 
-
-
     // Al hacer clic en el botón '+' de appbar abrir CreatePublicationActivity
     int LAUNCH_SECOND_ACTIVITY = 1;
     public void actionAddPubAppBar(MenuItem item){
         // Intent i = new Intent(this,CreatePublicationActivity.class);
         // startActivity(i);
         Intent i = new Intent(this, CreatePublicationActivity.class);
+        i.putExtra("loggedusername",nombre); // extra el del nombre del usuario logueado
         startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
     }
 

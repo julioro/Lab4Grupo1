@@ -24,14 +24,20 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
     Calendar calendar; // contendrá la hora y fecha obtenida de Firebase Functions
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_publication);
 
+        Bundle extras  = getIntent().getExtras();
+        if (extras != null){
+            username = extras.getString("loggedusername");
+        }
+
         databaseReference = FirebaseDatabase.getInstance().getReference(); // Variable con conexión a rama raíz (lab4grupo1/)
-        GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
+        // GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
     }
 
     // Crear nueva publicación
@@ -39,11 +45,18 @@ public class CreatePublicationActivity extends AppCompatActivity {
         GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
         Publication publication = new Publication(); // Nueva publicación
 
-
         // Configuración de parámetros de la publicación
-        publication.setUserName("userName1");
+        publication.setUserName(username);
         publication.setDescription(((EditText) findViewById(R.id.editTextPublicationDescription)).getText().toString());
-        publication.setDate(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
+
+        if (calendar != null) {
+            publication.setDate(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
+            Log.d("fechaOrigen","Se obutvo fecha de Firebase");
+        } else {
+            calendar = Calendar.getInstance();
+            publication.setDate(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
+            Log.d("fechaOrigen","Se obutvo fecha de celular");
+        }
         publication.setImage("image1"); // Deberá obtenerse de FB Storage
         publication.setComments("3");
 
