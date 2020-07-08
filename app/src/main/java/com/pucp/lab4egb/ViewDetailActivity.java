@@ -50,7 +50,7 @@ public class ViewDetailActivity extends AppCompatActivity {
     String cant="";
     FirebaseAuth mAuth;
     private MenuItem item;
-
+    String user_pub="";
     String publicationIdSelected;
     String publicationDescriptionSelected;
 
@@ -66,6 +66,7 @@ public class ViewDetailActivity extends AppCompatActivity {
         if (extras != null) {
             id = extras.getString("id");
             cant = extras.getString("cant");
+
             publicationDescriptionSelected = extras.getString("publicationDescriptionExtra");
         }
 
