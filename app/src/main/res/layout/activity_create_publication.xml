@@ -43,27 +43,17 @@
         app:layout_constraintStart_toStartOf="@+id/textViewTitlePublicationDescription"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitlePublicationDescription" />
 
-    <TextView
-        android:id="@+id/textViewTitleImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Seleccionar Foto"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextPublicationDescription"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextPublicationDescription"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPublicationDescription" />
-
     <ImageView
-        android:id="@+id/imageViewAttachPhoto"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewTitleImage"
-        app:layout_constraintStart_toEndOf="@+id/textViewTitleImage"
-        app:layout_constraintTop_toTopOf="@+id/textViewTitleImage"
-        app:layout_constraintVertical_bias="0.5"
+        android:id="@+id/imageView"
+        android:layout_width="167dp"
+        android:layout_height="204dp"
+        android:layout_marginBottom="212dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonUploadPublication"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoadPicture"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="@+id/buttonLoadPicture"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoadPicture"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_add_photo"
         tools:ignore="VectorDrawableCompat" />
 
@@ -71,11 +61,21 @@
         android:id="@+id/buttonUploadPublication"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="180dp"
         android:onClick="createPublication"
         android:text="Subir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonLoadPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VER GALERIA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitleImage" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPublicationDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

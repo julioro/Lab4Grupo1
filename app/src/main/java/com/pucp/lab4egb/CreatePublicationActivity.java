@@ -1,16 +1,23 @@
 package com.pucp.lab4egb;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,9 +31,20 @@ import com.google.firebase.functions.HttpsCallableResult;
 import com.pucp.lab4egb.entities.Comment;
 import com.pucp.lab4egb.entities.Publication;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 
 public class CreatePublicationActivity extends AppCompatActivity {
+
+    //Se define lo necesario para abrir la galeria y mostrar la foto en pantalla antes de subirla.
+    ImageView imageView;
+    Button button;
+    private static final int PICK_IMAGE = 100;
+    Uri imageUri;
+    // HASTA AQUI
+
 
     DatabaseReference databaseReference;
     Calendar calendar; // contendrá la hora y fecha obtenida de Firebase Functions
@@ -41,6 +59,19 @@ public class CreatePublicationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_publication);
 
+
+        // GENERAMOS EL CLICK EL CUAL LLAMARA A LA FUNCION openGallery();
+        imageView = (ImageView)findViewById(R.id.imageView);
+        button = (Button)findViewById(R.id.buttonLoadPicture);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
+
+
         Bundle extras  = getIntent().getExtras();
         if (extras != null){
             username = extras.getString("loggedusername");
@@ -48,6 +79,22 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference(); // Variable con conexión a rama raíz (lab4grupo1/)
         // GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
+    }
+
+    //FUNCION PARA GENERAR EL INTENT Y ABRIR LA GALERIA
+    private void openGallery(){
+        Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery,PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+        }
+
     }
 
     // Crear nueva publicación
@@ -182,6 +229,10 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         return true;
     }
+
+
+
+
 
 
 }

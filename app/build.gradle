@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'// MaterialDesign
     implementation 'androidx.recyclerview:recyclerview:1.1.0' // RecyclerView
     implementation 'com.google.firebase:firebase-functions:19.0.2' // Firebase Functions
+    implementation 'com.google.firebase:firebase-storage:19.1.1'  // FireBase Storage
 
 
 }
