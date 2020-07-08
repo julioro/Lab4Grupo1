@@ -51,8 +51,11 @@ public class ViewDetailActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         comment.setDate(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
-        comment.setHour(String.format("%02d", calendar.get(Calendar.HOUR)) + ":" + String.format("%02d", calendar.get(Calendar.MINUTE)));
 
+        String hourFormat = String.format("%02d", calendar.get(Calendar.HOUR));
+        String minuteFormat = String.format("%02d", calendar.get(Calendar.MINUTE));
+
+        comment.setHour(String.format("%02d", calendar.get(Calendar.HOUR)) + ":" + String.format("%02d", calendar.get(Calendar.MINUTE)));
         comment.setUser("loggedusername");
 
         DatabaseReference path2 = databaseReference.child("comments/" + publicationIdSelected).push();
