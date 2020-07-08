@@ -91,7 +91,6 @@ public class ViewDetailActivity extends AppCompatActivity {
 
     }
 
-
     public void publicationValueEventListener(String id_w){
         databaseReference.child("comments/"+ id_w).addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
             @Override
@@ -149,20 +148,11 @@ public class ViewDetailActivity extends AppCompatActivity {
         return true;
     }
 
-
+    int LAUNCH_CREATE_COMMENT_ACTIVITY = 2;
     public void CrearComentario(View view){
-
         Intent intent2 = new Intent(ViewDetailActivity.this, CreateCommentActivity.class);
         intent2.putExtra("id",id);
         intent2.putExtra("cant",cant);
-
-        startActivity(intent2);
-
+        startActivityForResult(intent2,LAUNCH_CREATE_COMMENT_ACTIVITY);
     }
-
-
-
-
-
-
 }
