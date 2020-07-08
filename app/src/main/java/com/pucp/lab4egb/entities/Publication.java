@@ -9,7 +9,17 @@ public class Publication {
     private String image;
     private String date;
     private String description;
-    private String comments;
+    private String cant_comments;
+
+
+    public String getCant_comments() {
+        return cant_comments;
+    }
+
+    public void setCant_comments(String cant_comments) {
+        this.cant_comments = cant_comments;
+    }
+
 
     public String getPublicationId() {
         return publicationId;
@@ -51,11 +61,5 @@ public class Publication {
         this.description = description;
     }
 
-    public String getComments() {
-        return comments;
-    }
 
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
 }

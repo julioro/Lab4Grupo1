@@ -86,7 +86,7 @@ public class ListPublicationsAdapter extends RecyclerView.Adapter<ListPublicatio
         // Obtenemos los parámetros de la publicación:
         String pubUser = p.getUserName();
         String pubDate = p.getDate();
-        String pubComments = p.getComments();
+        String pubComments = p.getCant_comments();
         String pubDescription = p.getDescription();
         // Le pasamos los parámetros de la publicación a la vista:
         holder.pubUserTextView.setText(pubUser);
