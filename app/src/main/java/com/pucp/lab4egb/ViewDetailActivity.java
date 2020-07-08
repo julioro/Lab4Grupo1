@@ -29,6 +29,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.pucp.lab4egb.entities.Comment;
 
 import java.util.Calendar;
+import java.util.TooManyListenersException;
 
 public class ViewDetailActivity extends AppCompatActivity {
 
@@ -77,15 +79,20 @@ public class ViewDetailActivity extends AppCompatActivity {
         TextView pubDescriptionDetailsTextView = findViewById(R.id.pubDescriptionDetailsTextView);
         pubDescriptionDetailsTextView.setText(publicationDescriptionSelected);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference(); // Variable con conexión a rama raíz (lab4grupo1/)
+        publicationValueEventListener(id);
+        buildPublicationRecyclerView();
 
-
-
+        /*
         int flag = Integer.valueOf(cant);
         if(flag != 0) {
             publicationValueEventListener(id); // Obtener lista completa de comments
-            buildPublicationRecyclerView();
+            //buildPublicationRecyclerView();
+            Toast.makeText(this, "la cantidad de comments es:" + flag, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "la cantidad de comments es:" + flag, Toast.LENGTH_SHORT).show();
         }
+
+         */
 
 
     }
@@ -152,6 +159,7 @@ public class ViewDetailActivity extends AppCompatActivity {
         Intent intent2 = new Intent(ViewDetailActivity.this, CreateCommentActivity.class);
         intent2.putExtra("id",id);
         intent2.putExtra("cant",cant);
+        intent2.putExtra("publicationDescriptionExtra",publicationDescriptionSelected);
         startActivityForResult(intent2,LAUNCH_CREATE_COMMENT_ACTIVITY);
     }
 }

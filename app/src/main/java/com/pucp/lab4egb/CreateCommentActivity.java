@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,17 +30,18 @@ public class CreateCommentActivity extends AppCompatActivity {
     String cant="";
     FirebaseAuth mAuth;
     Calendar calendar;
+    String publicationDescriptionSelected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_comment);
 
-
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             publicationIdSelected = extras.getString("id");
             cant = extras.getString("cant");
+            publicationDescriptionSelected = extras.getString("publicationDescriptionExtra");
         }
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -81,6 +83,7 @@ public class CreateCommentActivity extends AppCompatActivity {
                 });
         int int_cant = Integer.valueOf(cant);
         int_cant++;
+        cant = Integer.toString(int_cant);
 
         databaseReference.child("publications").child(publicationIdSelected).child("cant_comments").setValue(String.valueOf(int_cant));
         intentListComments();
@@ -91,6 +94,9 @@ public class CreateCommentActivity extends AppCompatActivity {
         Intent returnIntent = new Intent();
         //returnIntent.putExtra("result",result);
         setResult(Activity.RESULT_OK,returnIntent);
+        returnIntent.putExtra("id",publicationIdSelected);
+        returnIntent.putExtra("cant",cant);
+        returnIntent.putExtra("publicationDescriptionExtra",publicationDescriptionSelected);
         finish();
     }
 }
