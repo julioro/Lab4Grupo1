@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pucp.lab4egb.entities.Comment;
@@ -21,11 +23,15 @@ public class CreateCommentActivity extends AppCompatActivity {
     String id = "waa";
     DatabaseReference databaseReference;
     String publicationIdSelected;
+    String nombre="";
+    FirebaseAuth mAuth;
     Calendar calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_comment);
+
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -34,7 +40,9 @@ public class CreateCommentActivity extends AppCompatActivity {
         }
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        nombre = user.getDisplayName();
 
     }
 
@@ -50,7 +58,7 @@ public class CreateCommentActivity extends AppCompatActivity {
         comment.setDate(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
         comment.setHour(String.format("%02d", calendar.get(Calendar.HOUR)) + ":" + String.format("%02d", calendar.get(Calendar.MINUTE)));
 
-        comment.setUser("loggedusername");
+        comment.setUser(nombre);
 
         DatabaseReference path2 = databaseReference.child("comments/" + publicationIdSelected).push();
         path2.setValue(comment)
