@@ -3,6 +3,8 @@ package com.pucp.lab4egb;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -76,5 +78,15 @@ public class CreateCommentActivity extends AppCompatActivity {
                         Log.e("comentarioSaveFail","Guardado de comentario fallido",e.getCause());
                     }
                 });
+
+        intentListComments();
+    }
+
+    // Volver al Activity que abrió esta Activity mediante un Intent
+    public void intentListComments(){
+        Intent returnIntent = new Intent();
+        //returnIntent.putExtra("result",result);
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
     }
 }
