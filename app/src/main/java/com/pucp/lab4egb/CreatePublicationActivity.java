@@ -71,7 +71,7 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         //DatabaseReference path2 = databaseReference.child("comments/" + publicationId);
         //path2.setValue("");
-
+        databaseReference.child("comments/" + publicationId).setValue(true);
         //------------------
         publication.setPublicationId(publicationId);
         path.setValue(publication)
