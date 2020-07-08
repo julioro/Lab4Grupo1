@@ -7,11 +7,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.functions.FirebaseFunctions;
@@ -26,6 +31,10 @@ public class CreatePublicationActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     Calendar calendar; // contendrá la hora y fecha obtenida de Firebase Functions
     String username;
+    private MenuItem item;
+    Intent intent;
+    FirebaseAuth mAuth;
+    String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,4 +162,26 @@ public class CreatePublicationActivity extends AppCompatActivity {
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
+
+    // Inflar appbar_info  // ***********************
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_info,menu);
+        item = menu.findItem(R.id.name);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            nombre = user.getDisplayName();
+
+        } else {
+            Toast.makeText(this, "tostada", Toast.LENGTH_SHORT).show();
+        }
+
+        item.setTitle(nombre);
+
+        return true;
+    }
+
+
 }
