@@ -59,11 +59,20 @@ public class CreatePublicationActivity extends AppCompatActivity {
             Log.d("fechaOrigen","Se obutvo fecha de celular");
         }
         publication.setImage("image1"); // Deberá obtenerse de FB Storage
-        publication.setComments("3");
+        publication.setCant_comments("0");
+
 
         // Guardar publicación en DB
         DatabaseReference path = databaseReference.child("publications").push(); // configurar la ruta para imprimir en DB
         String publicationId = path.getKey(); // obtenemos el instanceId del push
+        //creacion de id de publicacion en comentarios
+        // DatabaseReference path2 = databaseReference.child("comments").push(); // configurar la ruta para imprimir en DB
+        //------------------
+
+        //DatabaseReference path2 = databaseReference.child("comments/" + publicationId);
+        //path2.setValue("");
+
+        //------------------
         publication.setPublicationId(publicationId);
         path.setValue(publication)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -71,6 +80,7 @@ public class CreatePublicationActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         // si se guardó exitosamente
                         Log.d("publicationSaveSuccess","Guardado de publication exitoso");
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -82,7 +92,11 @@ public class CreatePublicationActivity extends AppCompatActivity {
                 });
 
         // retornar a ListPublicationsActivity
+      //  databaseReference.child("comments").child(publicationId).push();
+
         intentListPublications();
+//        databaseReference.child("comments").child(publicationId);
+
     }
 
     /*

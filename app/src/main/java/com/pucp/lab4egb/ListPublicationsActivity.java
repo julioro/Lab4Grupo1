@@ -178,10 +178,15 @@ public class ListPublicationsActivity extends AppCompatActivity {
             @Override
             public void onViewMoreClick(int position) {
                 Publication pubSelected = publications.get(position);
-                Intent i = new Intent(ListPublicationsActivity.this, ViewDetailActivity.class);
-                i.putExtra("publicationIdExtra",pubSelected.getPublicationId()); // extra de la publicación de la que se desea ver detalles
-                i.putExtra("publicationDescriptionExtra",pubSelected.getDescription());
-                startActivity(i);
+
+                String pubSelectedViewMore = pubSelected.getPublicationId();
+                Intent intent2 = new Intent(ListPublicationsActivity.this, ViewDetailActivity.class);
+                intent2.putExtra("id",pubSelectedViewMore);
+                intent2.putExtra("cant",pubSelected.getCant_comments());
+                intent2.putExtra("publicationDescriptionExtra",pubSelected.getDescription());
+               // Log.d("valores", pubSelectedViewMore);
+                startActivity(intent2);
+
             }
         });
     }
@@ -203,6 +208,7 @@ public class ListPublicationsActivity extends AppCompatActivity {
         // startActivity(i);
         Intent i = new Intent(this, CreatePublicationActivity.class);
         i.putExtra("loggedusername",nombre); // extra el del nombre del usuario logueado
+
         startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
     }
 
