@@ -153,6 +153,8 @@ public class ViewDetailActivity extends AppCompatActivity {
 
         Intent intent2 = new Intent(ViewDetailActivity.this, CreateCommentActivity.class);
         intent2.putExtra("id",id);
+        intent2.putExtra("cant",cant);
+
         startActivity(intent2);
 
     }
