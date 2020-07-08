@@ -26,6 +26,7 @@ public class CreateCommentActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     String publicationIdSelected;
     String nombre="";
+    String cant="";
     FirebaseAuth mAuth;
     Calendar calendar;
     @Override
@@ -38,7 +39,7 @@ public class CreateCommentActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             publicationIdSelected = extras.getString("id");
-
+            cant = extras.getString("cant");
         }
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -78,7 +79,10 @@ public class CreateCommentActivity extends AppCompatActivity {
                         Log.e("comentarioSaveFail","Guardado de comentario fallido",e.getCause());
                     }
                 });
+        int int_cant = Integer.valueOf(cant);
+        int_cant++;
 
+        databaseReference.child("publications").child(publicationIdSelected).child("cant_comments").setValue(String.valueOf(int_cant));
         intentListComments();
     }
 

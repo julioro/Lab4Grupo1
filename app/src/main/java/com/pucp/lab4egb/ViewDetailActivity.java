@@ -151,6 +151,7 @@ public class ViewDetailActivity extends AppCompatActivity {
     public void CrearComentario(View view){
         Intent intent2 = new Intent(ViewDetailActivity.this, CreateCommentActivity.class);
         intent2.putExtra("id",id);
+        intent2.putExtra("cant",cant);
         startActivityForResult(intent2,LAUNCH_CREATE_COMMENT_ACTIVITY);
     }
 }
