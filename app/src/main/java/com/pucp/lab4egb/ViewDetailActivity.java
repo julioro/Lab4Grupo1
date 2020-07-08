@@ -15,11 +15,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pucp.lab4egb.entities.Comment;
 
+import java.util.Calendar;
+
 public class ViewDetailActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
     String publicationIdSelected;
     String publicationDescriptionSelected;
+
+    Calendar calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +48,11 @@ public class ViewDetailActivity extends AppCompatActivity {
         EditText editTextNewComment = findViewById(R.id.editTextNewComment);
         comment.setBody(editTextNewComment.getText().toString());
 
+        calendar = Calendar.getInstance();
 
+        comment.setDate(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR));
+        comment.setHour(String.format("%02d", calendar.get(Calendar.HOUR)) + ":" + String.format("%02d", calendar.get(Calendar.MINUTE)));
 
-        comment.setDate("1/1/20");
-        comment.setHour("11:59");
         comment.setUser("loggedusername");
 
         DatabaseReference path2 = databaseReference.child("comments/" + publicationIdSelected).push();

@@ -106,7 +106,6 @@ public class ListPublicationsActivity extends AppCompatActivity {
 
     }
 
-
     public void publicationValueEventListener(){
         databaseReference.child("publications").addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
             @Override
@@ -167,7 +166,6 @@ public class ListPublicationsActivity extends AppCompatActivity {
     }
 
     // Método para construir el RecyclerView
-    int LAUNCH_VIEWDETAIL_ACTIVITY = 2;
     public void buildPublicationRecyclerView(){
         listPublicationsAdapter = new ListPublicationsAdapter(publications, ListPublicationsActivity.this);
         recyclerViewPublications = findViewById(R.id.recyclerViewPublications);
@@ -186,7 +184,6 @@ public class ListPublicationsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
 
     // Inflar appbar
