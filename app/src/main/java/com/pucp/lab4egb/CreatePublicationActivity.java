@@ -28,9 +28,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.pucp.lab4egb.entities.Comment;
 import com.pucp.lab4egb.entities.Publication;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,6 +57,11 @@ public class CreatePublicationActivity extends AppCompatActivity {
     Intent intent;
     FirebaseAuth mAuth;
     String nombre;
+
+    //Declaramos lo necesario para Storage
+    FirebaseStorage storage;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +111,11 @@ public class CreatePublicationActivity extends AppCompatActivity {
         GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
         Publication publication = new Publication(); // Nueva publicación
 
+
+        //Configuramos los parámtetros necesarios para Storage, se asume una foto por publicacion
+        StorageReference storageRef = storage.getReference();
+
+
         // Configuración de parámetros de la publicación
         publication.setUserName(username);
         publication.setDescription(((EditText) findViewById(R.id.editTextPublicationDescription)).getText().toString());
@@ -149,6 +163,28 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         // retornar a ListPublicationsActivity
       //  databaseReference.child("comments").child(publicationId).push();
+
+        // Usaremos putFile para subir nuestra imagen.
+        StorageReference publicationsRef = storageRef.child("publications/"+publicationId);
+        UploadTask uploadTask = publicationsRef.putFile(imageUri);
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d("infoApp","subido exitoso");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("infoApp","subido erróneoooooooooooooooooooooo");
+            }
+        });
+
+
+
+
+
+
 
         intentListPublications();
 //        databaseReference.child("comments").child(publicationId);
