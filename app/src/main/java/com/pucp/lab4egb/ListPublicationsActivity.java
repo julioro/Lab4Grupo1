@@ -167,6 +167,7 @@ public class ListPublicationsActivity extends AppCompatActivity {
     }
 
     // Método para construir el RecyclerView
+    int LAUNCH_VIEWDETAIL_ACTIVITY = 2;
     public void buildPublicationRecyclerView(){
         listPublicationsAdapter = new ListPublicationsAdapter(publications, ListPublicationsActivity.this);
         recyclerViewPublications = findViewById(R.id.recyclerViewPublications);
@@ -179,7 +180,10 @@ public class ListPublicationsActivity extends AppCompatActivity {
             @Override
             public void onViewMoreClick(int position) {
                 Publication pubSelected = publications.get(position);
-                String pubSelectedViewMore = pubSelected.getPublicationId();
+                Intent i = new Intent(ListPublicationsActivity.this, ViewDetailActivity.class);
+                i.putExtra("publicationIdExtra",pubSelected.getPublicationId()); // extra de la publicación de la que se desea ver detalles
+                i.putExtra("publicationDescriptionExtra",pubSelected.getDescription());
+                startActivity(i);
             }
         });
 

@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
+import com.pucp.lab4egb.entities.Comment;
 import com.pucp.lab4egb.entities.Publication;
 
 import java.util.Calendar;
@@ -83,6 +84,34 @@ public class CreatePublicationActivity extends AppCompatActivity {
         // retornar a ListPublicationsActivity
         intentListPublications();
     }
+
+    /*
+    public void createComment(View view){
+        Comment comment = new Comment();
+
+        comment.setBody("Cuerpo del comentario");
+        comment.setDate("1/1/20");
+        comment.setHour("11:59");
+        comment.setUser("loggedusername");
+
+        DatabaseReference path2 = databaseReference.child("comments/" + "-MBfGg9DyfKqlyFxjAFK").push();
+        path2.setValue(comment)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // si se guardó exitosamente
+                Log.d("commentSaveSuccess","Guardado de comentario exitoso");
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // si hubo error al guardar
+                        Log.e("comentarioSaveFail","Guardado de comentario fallido",e.getCause());
+                    }
+                });
+    }
+     */
 
     // Obtener Hora y fecha de Firebase Functions
     public void GetDateTimeFromFirebaseFunctions(){
