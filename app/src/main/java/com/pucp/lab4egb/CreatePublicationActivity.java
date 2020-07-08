@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -34,6 +35,8 @@ import com.google.firebase.storage.UploadTask;
 import com.pucp.lab4egb.entities.Comment;
 import com.pucp.lab4egb.entities.Publication;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,7 +62,8 @@ public class CreatePublicationActivity extends AppCompatActivity {
     String nombre;
 
     //Declaramos lo necesario para Storage
-    FirebaseStorage storage;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
 
 
@@ -113,7 +117,7 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
 
         //Configuramos los parámtetros necesarios para Storage, se asume una foto por publicacion
-        StorageReference storageRef = storage.getReference();
+        //StorageReference storageRef = storage.getReference();
 
 
         // Configuración de parámetros de la publicación
@@ -164,9 +168,18 @@ public class CreatePublicationActivity extends AppCompatActivity {
         // retornar a ListPublicationsActivity
       //  databaseReference.child("comments").child(publicationId).push();
 
-        // Usaremos putFile para subir nuestra imagen.
+        // Usaremos putBytes para subir nuestra imagen.
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bitmapImage =((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream  baos = new ByteArrayOutputStream();
+        bitmapImage.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte [] data = baos.toByteArray();
+
+
         StorageReference publicationsRef = storageRef.child("publications/"+publicationId);
-        UploadTask uploadTask = publicationsRef.putFile(imageUri);
+
+        UploadTask uploadTask = publicationsRef.putBytes(data);
 
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
