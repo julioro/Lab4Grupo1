@@ -2,9 +2,11 @@ package com.pucp.lab4egb;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,9 +24,24 @@ import com.pucp.lab4egb.entities.Publication;
 
 import java.util.ArrayList;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.pucp.lab4egb.entities.Comment;
+
+import java.util.Calendar;
+
 public class ViewDetailActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
+
     private ArrayList<Comment> comments = new ArrayList<>();;
     private RecyclerView recyclerViewComments; // RecyclerView
     private ViewDetailAdapter viewDetailAdapter; // Adapter
@@ -33,21 +50,37 @@ public class ViewDetailActivity extends AppCompatActivity {
     String cant="";
     FirebaseAuth mAuth;
     private MenuItem item;
+
+    String publicationIdSelected;
+    String publicationDescriptionSelected;
+
+    Calendar calendar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_detail);
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             id = extras.getString("id");
             cant = extras.getString("cant");
-
+            publicationDescriptionSelected = extras.getString("publicationDescriptionExtra");
         }
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         nombre = user.getDisplayName();
+
+        TextView pubDescriptionDetailsTextView = findViewById(R.id.pubDescriptionDetailsTextView);
+        pubDescriptionDetailsTextView.setText(publicationDescriptionSelected);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference(); // Variable con conexión a rama raíz (lab4grupo1/)
+
+
+
         int flag = Integer.valueOf(cant);
         if(flag != 0) {
             publicationValueEventListener(id); // Obtener lista completa de comments
@@ -114,5 +147,19 @@ public class ViewDetailActivity extends AppCompatActivity {
 
         return true;
     }
+
+
+    public void CrearComentario(View view){
+
+        Intent intent2 = new Intent(ViewDetailActivity.this, CreateCommentActivity.class);
+        intent2.putExtra("id",id);
+        startActivity(intent2);
+
+    }
+
+
+
+
+
 
 }

@@ -106,7 +106,6 @@ public class ListPublicationsActivity extends AppCompatActivity {
 
     }
 
-
     public void publicationValueEventListener(){
         databaseReference.child("publications").addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
             @Override
@@ -179,15 +178,17 @@ public class ListPublicationsActivity extends AppCompatActivity {
             @Override
             public void onViewMoreClick(int position) {
                 Publication pubSelected = publications.get(position);
+
                 String pubSelectedViewMore = pubSelected.getPublicationId();
                 Intent intent2 = new Intent(ListPublicationsActivity.this, ViewDetailActivity.class);
                 intent2.putExtra("id",pubSelectedViewMore);
                 intent2.putExtra("cant",pubSelected.getCant_comments());
-                Log.d("valores", pubSelectedViewMore);
+                intent2.putExtra("publicationDescriptionExtra",pubSelected.getDescription());
+               // Log.d("valores", pubSelectedViewMore);
                 startActivity(intent2);
+
             }
         });
-
     }
 
     // Inflar appbar

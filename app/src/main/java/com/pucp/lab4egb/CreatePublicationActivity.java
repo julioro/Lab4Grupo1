@@ -99,6 +99,34 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
     }
 
+    /*
+    public void createComment(View view){
+        Comment comment = new Comment();
+
+        comment.setBody("Cuerpo del comentario");
+        comment.setDate("1/1/20");
+        comment.setHour("11:59");
+        comment.setUser("loggedusername");
+
+        DatabaseReference path2 = databaseReference.child("comments/" + "-MBfGg9DyfKqlyFxjAFK").push();
+        path2.setValue(comment)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // si se guardó exitosamente
+                Log.d("commentSaveSuccess","Guardado de comentario exitoso");
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // si hubo error al guardar
+                        Log.e("comentarioSaveFail","Guardado de comentario fallido",e.getCause());
+                    }
+                });
+    }
+     */
+
     // Obtener Hora y fecha de Firebase Functions
     public void GetDateTimeFromFirebaseFunctions(){
         FirebaseFunctions.getInstance().getHttpsCallable("getTime")
