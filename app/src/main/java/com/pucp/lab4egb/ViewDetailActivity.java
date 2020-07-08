@@ -93,8 +93,6 @@ public class ViewDetailActivity extends AppCompatActivity {
         }
 
          */
-
-
     }
 
     public void publicationValueEventListener(String id_w){
