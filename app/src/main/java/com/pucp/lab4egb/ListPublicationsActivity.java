@@ -62,9 +62,9 @@ public class ListPublicationsActivity extends AppCompatActivity {
         //Obteniendo usuario y correo
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        nombre = user.getDisplayName();
-        correo = user.getEmail();
 
+           nombre = user.getDisplayName();
+           correo = user.getEmail();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pucp.lab4egb.entities.Comment;
 
 import java.util.Calendar;
@@ -27,8 +30,9 @@ public class CreateCommentActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     String publicationIdSelected;
     String nombre="";
-    String cant="";
+    String cant="2";
     FirebaseAuth mAuth;
+    int int_cant=0;
     Calendar calendar;
     String publicationDescriptionSelected;
 
@@ -81,11 +85,12 @@ public class CreateCommentActivity extends AppCompatActivity {
                         Log.e("comentarioSaveFail","Guardado de comentario fallido",e.getCause());
                     }
                 });
-        int int_cant = Integer.valueOf(cant);
-        int_cant++;
-        cant = Integer.toString(int_cant);
+         int_cant = Integer.parseInt(cant);
+        int_cant = int_cant + 1;
+        cant = String.valueOf(int_cant);
 
-        databaseReference.child("publications").child(publicationIdSelected).child("cant_comments").setValue(String.valueOf(int_cant));
+
+        databaseReference.child("publications").child(publicationIdSelected).child("cant_comments").setValue(cant);
         intentListComments();
     }
 
@@ -95,7 +100,7 @@ public class CreateCommentActivity extends AppCompatActivity {
         //returnIntent.putExtra("result",result);
         setResult(Activity.RESULT_OK,returnIntent);
         returnIntent.putExtra("id",publicationIdSelected);
-        returnIntent.putExtra("cant",cant);
+        returnIntent.putExtra("cant",int_cant);
         returnIntent.putExtra("publicationDescriptionExtra",publicationDescriptionSelected);
         finish();
     }
