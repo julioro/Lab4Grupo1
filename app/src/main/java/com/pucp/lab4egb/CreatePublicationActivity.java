@@ -1,36 +1,89 @@
 package com.pucp.lab4egb;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.pucp.lab4egb.entities.Comment;
 import com.pucp.lab4egb.entities.Publication;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 
 public class CreatePublicationActivity extends AppCompatActivity {
 
+    //Se define lo necesario para abrir la galeria y mostrar la foto en pantalla antes de subirla.
+    ImageView imageView;
+    Button button;
+    private static final int PICK_IMAGE = 100;
+    Uri imageUri;
+    // HASTA AQUI
+
+
     DatabaseReference databaseReference;
     Calendar calendar; // contendrá la hora y fecha obtenida de Firebase Functions
     String username;
+    private MenuItem item;
+    Intent intent;
+    FirebaseAuth mAuth;
+    String nombre;
+
+    //Declaramos lo necesario para Storage
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_publication);
+
+
+        // GENERAMOS EL CLICK EL CUAL LLAMARA A LA FUNCION openGallery();
+        imageView = (ImageView)findViewById(R.id.imageView);
+        button = (Button)findViewById(R.id.buttonLoadPicture);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
+
 
         Bundle extras  = getIntent().getExtras();
         if (extras != null){
@@ -41,10 +94,31 @@ public class CreatePublicationActivity extends AppCompatActivity {
         // GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
     }
 
+    //FUNCION PARA GENERAR EL INTENT Y ABRIR LA GALERIA
+    private void openGallery(){
+        Intent gallery = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery,PICK_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
+            imageUri = data.getData();
+            imageView.setImageURI(imageUri);
+        }
+
+    }
+
     // Crear nueva publicación
     public void createPublication(View view){
         GetDateTimeFromFirebaseFunctions(); // Obtener Hora y fecha de Firebase Functions
         Publication publication = new Publication(); // Nueva publicación
+
+
+        //Configuramos los parámtetros necesarios para Storage, se asume una foto por publicacion
+        //StorageReference storageRef = storage.getReference();
+
 
         // Configuración de parámetros de la publicación
         publication.setUserName(username);
@@ -93,6 +167,39 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         // retornar a ListPublicationsActivity
       //  databaseReference.child("comments").child(publicationId).push();
+
+        // Usaremos putBytes para subir nuestra imagen.
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bitmapImage =((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream  baos = new ByteArrayOutputStream();
+        bitmapImage.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte [] data = baos.toByteArray();
+
+
+        StorageReference publicationsRef = storageRef.child("publications/"+publicationId);
+
+        UploadTask uploadTask = publicationsRef.putBytes(data);
+
+        // PENDIENTE AGREGAR PROGRESO DE SUBIDA!!!! OJOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d("infoApp","subido exitoso");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("infoApp","subido erróneoooooooooooooooooooooo");
+            }
+        });
+
+
+
+
+
+
 
         intentListPublications();
 //        databaseReference.child("comments").child(publicationId);
@@ -153,4 +260,30 @@ public class CreatePublicationActivity extends AppCompatActivity {
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
+
+    // Inflar appbar_info  // ***********************
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.appbar_info,menu);
+        item = menu.findItem(R.id.name);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null){
+            nombre = user.getDisplayName();
+
+        } else {
+            Toast.makeText(this, "tostada", Toast.LENGTH_SHORT).show();
+        }
+
+        item.setTitle(nombre);
+
+        return true;
+    }
+
+
+
+
+
+
 }
