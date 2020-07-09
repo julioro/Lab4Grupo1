@@ -58,8 +58,6 @@ public class ViewDetailActivity extends AppCompatActivity {
 
     String publicationIdSelected, publicationDescriptionSelected, publicationDateSelected, publicationUserNameSelected;
 
-    Calendar calendar;
-
     Integer commentsSize;
 
     @Override
@@ -71,10 +69,13 @@ public class ViewDetailActivity extends AppCompatActivity {
         if (extras != null) {
             id = extras.getString("id");
             cant = extras.getString("cant");
+
             publicationDescriptionSelected = extras.getString("publicationDescriptionExtra");
             publicationDateSelected = extras.getString("publicationDateExtra");
             publicationUserNameSelected = extras.getString("publicationUserNameExtra");
         }
+        //Log.d("cant",cant);
+        Toast.makeText(ViewDetailActivity.this, cant, Toast.LENGTH_LONG).show();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();

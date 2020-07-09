@@ -37,6 +37,7 @@ public class ViewDetailAdapter extends RecyclerView.Adapter<ViewDetailAdapter.Vi
         public TextView verComment;
         public TextView verUser;
         public TextView verDate;
+        public TextView verHour;
         // public ImageView pubImageView;
 
         public ViewDetailViewHolder(View itemView, final OnItemClickListener listener) {
@@ -44,6 +45,7 @@ public class ViewDetailAdapter extends RecyclerView.Adapter<ViewDetailAdapter.Vi
             verComment = itemView.findViewById(R.id.verComment);
             verUser = itemView.findViewById(R.id.verUser);
             verDate = itemView.findViewById(R.id.verDate);
+            verHour = itemView.findViewById(R.id.verHour);
             // pubImageView = itemView.findViewById(R.id.pubImageView);
 
             // gestiona el evento de click sobre el botón de info
@@ -86,10 +88,12 @@ public class ViewDetailAdapter extends RecyclerView.Adapter<ViewDetailAdapter.Vi
         String comDate = p.getDate();
         String commentarios = p.getBody();
         String comHour = p.getHour();
+
         // Le pasamos los parámetros de la publicación a la vista:
-        holder.verComment.setText(comUser);
-        holder.verUser.setText(comDate);
-        holder.verDate.setText(commentarios);
+        holder.verComment.setText(commentarios);
+        holder.verUser.setText(comUser);
+        holder.verDate.setText(comDate);
+        holder.verHour.setText(comHour);
        // holder.pubDescriptionTextView.setText(pubDescription);
     }
 

@@ -31,8 +31,9 @@ public class CreateCommentActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     String publicationIdSelected;
     String nombre="";
-    String cant="";
+    String cant="2";
     FirebaseAuth mAuth;
+    int int_cant=0;
     Calendar calendar;
     String publicationDescriptionSelected;
 
@@ -84,14 +85,7 @@ public class CreateCommentActivity extends AppCompatActivity {
                         Log.e("comentarioSaveFail","Guardado de comentario fallido",e.getCause());
                     }
                 });
-        /*
-        int int_cant = Integer.valueOf(cant);
-        int_cant++;
-        cant = Integer.toString(int_cant);
-         */
 
-
-        //databaseReference.child("publications").child(publicationIdSelected).child("cant_comments").setValue(String.valueOf(int_cant));
         intentListComments();
     }
 
@@ -101,7 +95,7 @@ public class CreateCommentActivity extends AppCompatActivity {
         //returnIntent.putExtra("result",result);
         setResult(Activity.RESULT_OK,returnIntent);
         returnIntent.putExtra("id",publicationIdSelected);
-        returnIntent.putExtra("cant",cant);
+        returnIntent.putExtra("cant",int_cant);
         returnIntent.putExtra("publicationDescriptionExtra",publicationDescriptionSelected);
         finish();
     }

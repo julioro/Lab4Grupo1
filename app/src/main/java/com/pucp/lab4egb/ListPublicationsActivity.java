@@ -62,13 +62,14 @@ public class ListPublicationsActivity extends AppCompatActivity {
         //Obteniendo usuario y correo
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
         if(user != null){
             nombre = user.getDisplayName();
             correo = user.getEmail();
         } else {
             Toast.makeText(this, "tostada", Toast.LENGTH_SHORT).show();
         }
-        
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         publicationValueEventListener(); // Obtener lista completa de publicaciones
