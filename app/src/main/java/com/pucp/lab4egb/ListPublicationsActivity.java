@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,9 +57,10 @@ public class ListPublicationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_publications);
 
+        setTitle("");
+
         //cerrar sesion
         logoutBtn = findViewById(R.id.logout_button);
-
         //Obteniendo usuario y correo
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
@@ -79,7 +81,7 @@ public class ListPublicationsActivity extends AppCompatActivity {
         buildPublicationRecyclerView();
     }
 
-    public void CerrarSesion(View view){
+    public void CerrarSesion(MenuItem item){
         SessionManager<TwitterSession> sessionManager = TwitterCore.getInstance().getSessionManager();
         if (sessionManager.getActiveSession() != null){
             sessionManager.clearActiveSession();
@@ -205,6 +207,7 @@ public class ListPublicationsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.appbar,menu);
         item = menu.findItem(R.id.name);
         item.setTitle(nombre);
+
 
         return true;
     }
