@@ -4,10 +4,9 @@
 
     <item
         android:id="@+id/logout"
-        android:title="Cerra sesion"
-        app:showAsAction="always"
         android:onClick="CerrarSesion"
-        />
+        android:title="Logout"
+        app:showAsAction="always" />
 
 
 
@@ -19,6 +18,7 @@
     <item
         android:id="@+id/name"
         android:title="Nombre"
+        android:visible="true"
         app:showAsAction="always" />
 
 
