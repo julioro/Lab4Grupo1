@@ -27,9 +27,7 @@
         </activity>
         <activity android:name=".ListPublicationsActivity">
         </activity>
-        <activity android:name=".ListPublicationsActivity">
 
-        </activity>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".CreatePublicationActivity"

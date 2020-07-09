@@ -75,7 +75,7 @@ public class ViewDetailActivity extends AppCompatActivity {
             publicationUserNameSelected = extras.getString("publicationUserNameExtra");
         }
         //Log.d("cant",cant);
-        Toast.makeText(ViewDetailActivity.this, cant, Toast.LENGTH_LONG).show();
+        //Toast.makeText(ViewDetailActivity.this, cant, Toast.LENGTH_LONG).show();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
