@@ -6,10 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.pucp.lab4egb.entities.Publication;
 
 import java.util.ArrayList;
@@ -19,6 +23,14 @@ public class ListPublicationsAdapter extends RecyclerView.Adapter<ListPublicatio
     private ArrayList<Publication> publicationsList;
     Context context;
     private OnItemClickListener mListener;
+
+
+    //PARA STORAGE --------------------------------------------
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+
+    // -------------------------------------------- PARA STORAGE
+
 
     // Creamos una interfaz con un método para pasar la posición del item al que hemos hecho click
     public interface OnItemClickListener {
@@ -38,7 +50,7 @@ public class ListPublicationsAdapter extends RecyclerView.Adapter<ListPublicatio
         public TextView pubCommentsTextView;
         public TextView pubDescriptionTextView;
         public TextView pubViewMoreTextView;
-        // public ImageView pubImageView;
+        public ImageView pubImageView;
 
         public PublicationViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -47,7 +59,7 @@ public class ListPublicationsAdapter extends RecyclerView.Adapter<ListPublicatio
             pubCommentsTextView = itemView.findViewById(R.id.pubCommentsTextView);
             pubDescriptionTextView = itemView.findViewById(R.id.pubDescriptionTextView);
             pubViewMoreTextView = itemView.findViewById(R.id.pubViewMoreTextView);
-            // pubImageView = itemView.findViewById(R.id.pubImageView);
+            pubImageView = itemView.findViewById(R.id.pubImageView);
 
             // gestiona el evento de click sobre el botón de info
             pubViewMoreTextView.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +100,26 @@ public class ListPublicationsAdapter extends RecyclerView.Adapter<ListPublicatio
         String pubDate = p.getDate();
         String pubComments = p.getCant_comments();
         String pubDescription = p.getDescription();
+
+
+        /*ESTO SIRVE PARA PODER CARGAR LA IMAGEN DENTRO DEL IMAGEVIEW ------------------------------ */
+
+        StorageReference imageRef = storageRef.child("publications/"+p.getPublicationId());
+        Toast.makeText(context, p.getPublicationId(), Toast.LENGTH_SHORT);
+        //ImageView imageView = null;
+
+        Glide.with(context)
+                .load(imageRef)
+                .into(holder.pubImageView);
+        /* --------------------------------------------------AQUI TERMINA LA CARGA EN EL IMAGEVIEW */
+
         // Le pasamos los parámetros de la publicación a la vista:
         holder.pubUserTextView.setText(pubUser);
         holder.pubDateTextView.setText(pubDate);
         holder.pubCommentsTextView.setText(pubComments + " Comentarios");
         holder.pubDescriptionTextView.setText(pubDescription);
+
+
     }
 
     @Override

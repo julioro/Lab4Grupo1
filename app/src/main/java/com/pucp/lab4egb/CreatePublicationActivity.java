@@ -181,6 +181,8 @@ public class CreatePublicationActivity extends AppCompatActivity {
 
         UploadTask uploadTask = publicationsRef.putBytes(data);
 
+        // PENDIENTE AGREGAR PROGRESO DE SUBIDA!!!! OJOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
