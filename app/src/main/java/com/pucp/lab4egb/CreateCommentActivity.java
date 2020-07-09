@@ -16,9 +16,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pucp.lab4egb.entities.Comment;
+import com.pucp.lab4egb.entities.Publication;
 
 import java.util.Calendar;
 
@@ -51,7 +55,6 @@ public class CreateCommentActivity extends AppCompatActivity {
 
     }
 
-
     public void createComment(View view){
         Comment comment = new Comment();
 
@@ -81,11 +84,14 @@ public class CreateCommentActivity extends AppCompatActivity {
                         Log.e("comentarioSaveFail","Guardado de comentario fallido",e.getCause());
                     }
                 });
+        /*
         int int_cant = Integer.valueOf(cant);
         int_cant++;
         cant = Integer.toString(int_cant);
+         */
 
-        databaseReference.child("publications").child(publicationIdSelected).child("cant_comments").setValue(String.valueOf(int_cant));
+
+        //databaseReference.child("publications").child(publicationIdSelected).child("cant_comments").setValue(String.valueOf(int_cant));
         intentListComments();
     }
 

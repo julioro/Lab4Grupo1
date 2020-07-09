@@ -187,6 +187,10 @@ public class ListPublicationsActivity extends AppCompatActivity {
                 intent2.putExtra("id",pubSelectedViewMore);
                 intent2.putExtra("cant",pubSelected.getCant_comments());
                 intent2.putExtra("publicationDescriptionExtra",pubSelected.getDescription());
+                intent2.putExtra("publicationDateExtra",pubSelected.getDate());
+                intent2.putExtra("publicationUserNameExtra",pubSelected.getUserName());
+                // AQUÍ FALTA PASAR LA IMAGEN COMO EXTRA
+
                // Log.d("valores", pubSelectedViewMore);
                 startActivity(intent2);
 

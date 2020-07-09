@@ -6,19 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".ViewDetailActivity">
 
+    <TextView
+        android:id="@+id/pubUserDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:text="Nombre de usuario"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/pubImageView"
-        android:layout_width="175dp"
-        android:layout_height="176dp"
-
-        android:layout_marginTop="56dp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewPublications"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/pubCommentsDetailsTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pubUserDetailsTextView"
         tools:srcCompat="@drawable/ic_add_photo" />
+
+    <TextView
+        android:id="@+id/pubDateDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="XX/YY/ZZ"
+        app:layout_constraintBottom_toTopOf="@+id/pubDescriptionDetailsTextView"
+        app:layout_constraintEnd_toEndOf="@+id/pubUserDetailsTextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/pubUserDetailsTextView" />
+
+    <TextView
+        android:id="@+id/pubCommentsDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="X Comentarios"
+        app:layout_constraintBottom_toBottomOf="@+id/pubDateDetailsTextView"
+        app:layout_constraintStart_toEndOf="@+id/pubDateDetailsTextView"
+        app:layout_constraintTop_toTopOf="@+id/pubDateDetailsTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/pubDescriptionDetailsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Descripción de publicación"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewComments"
+        app:layout_constraintEnd_toEndOf="@+id/pubDateDetailsTextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/pubDateDetailsTextView" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewComments" />
+    
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewComments"
@@ -30,19 +80,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.678" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="99dp"
-        android:layout_height="40dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewPublications"
-        app:layout_constraintEnd_toStartOf="@+id/pubImageView"
-        app:layout_constraintHorizontal_bias="0.842"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.115" />
-
 
     <Button
         android:id="@+id/button"
@@ -56,16 +93,5 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewComments" />
-
-    <TextView
-        android:id="@+id/pubDescriptionDetailsTextView"
-        android:layout_width="285dp"
-        android:layout_height="72dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerViewComments"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pubImageView" />
-
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

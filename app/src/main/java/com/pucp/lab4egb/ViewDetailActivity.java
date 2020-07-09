@@ -1,11 +1,13 @@
 package com.pucp.lab4egb;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +46,8 @@ public class ViewDetailActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
 
-    private ArrayList<Comment> comments = new ArrayList<>();;
+    private ArrayList<Comment> comments = new ArrayList<>();
+    private ArrayList<Comment> comments2 = new ArrayList<>();
     private RecyclerView recyclerViewComments; // RecyclerView
     private ViewDetailAdapter viewDetailAdapter; // Adapter
     String id = "waa";
@@ -53,11 +56,11 @@ public class ViewDetailActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     private MenuItem item;
 
-    String publicationIdSelected;
-    String publicationDescriptionSelected;
+    String publicationIdSelected, publicationDescriptionSelected, publicationDateSelected, publicationUserNameSelected;
 
     Calendar calendar;
 
+    Integer commentsSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,8 @@ public class ViewDetailActivity extends AppCompatActivity {
             id = extras.getString("id");
             cant = extras.getString("cant");
             publicationDescriptionSelected = extras.getString("publicationDescriptionExtra");
+            publicationDateSelected = extras.getString("publicationDateExtra");
+            publicationUserNameSelected = extras.getString("publicationUserNameExtra");
         }
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -76,26 +81,20 @@ public class ViewDetailActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         nombre = user.getDisplayName();
 
+        TextView pubUserDetailsTextView = findViewById(R.id.pubUserDetailsTextView);
+        TextView pubDateDetailsTextView = findViewById(R.id.pubDateDetailsTextView);
         TextView pubDescriptionDetailsTextView = findViewById(R.id.pubDescriptionDetailsTextView);
-        pubDescriptionDetailsTextView.setText(publicationDescriptionSelected);
 
         publicationValueEventListener(id);
         buildPublicationRecyclerView();
 
-        /*
-        int flag = Integer.valueOf(cant);
-        if(flag != 0) {
-            publicationValueEventListener(id); // Obtener lista completa de comments
-            //buildPublicationRecyclerView();
-            Toast.makeText(this, "la cantidad de comments es:" + flag, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "la cantidad de comments es:" + flag, Toast.LENGTH_SHORT).show();
-        }
+        pubUserDetailsTextView.setText(publicationUserNameSelected);
+        pubDateDetailsTextView.setText(publicationDateSelected);
 
-         */
+        pubDescriptionDetailsTextView.setText(publicationDescriptionSelected);
     }
 
-    public void publicationValueEventListener(String id_w){
+    public void publicationValueEventListener(final String id_w){
         databaseReference.child("comments/"+ id_w).addValueEventListener(new ValueEventListener() { // CAMBIAR POR UN userId VARIABLE
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // cada vez que hay un cambio en Firebase
@@ -112,6 +111,12 @@ public class ViewDetailActivity extends AppCompatActivity {
                     //Log.d("pubDescriptionFromArray",publications.get(publications.indexOf(publication)).getDescription()); // imprimir desde un ArrayList
                     //Log.d("pubIdFromArray",publications.get(publications.indexOf(publication)).getPublicationId()); // imprimir desde un ArrayList
                 }
+
+                commentsSize = comments.size();
+                TextView pubCommentsDetailsTextView = findViewById(R.id.pubCommentsDetailsTextView);
+                pubCommentsDetailsTextView.setText(commentsSize + " Comentarios");
+                // Toast.makeText(ViewDetailActivity.this, "commentsSize: " + commentsSize, Toast.LENGTH_SHORT).show();
+                databaseReference.child("publications/" + id_w).child("cant_comments").setValue(commentsSize.toString());
 
                 buildPublicationRecyclerView();
             }
@@ -130,17 +135,6 @@ public class ViewDetailActivity extends AppCompatActivity {
         recyclerViewComments = findViewById(R.id.recyclerViewComments);
         recyclerViewComments.setAdapter(viewDetailAdapter);
         recyclerViewComments.setLayoutManager(new LinearLayoutManager(ViewDetailActivity.this));
-
-        //Log.d("size2",Integer.toString(publications.size())); // imprimir desde un List
-        /*
-        viewDetailAdapter.setOnItemClickListener(new ListPublicationsAdapter.OnItemClickListener() {
-            @Override
-            public void onViewMoreClick(int position) {
-                Publication pubSelected = publications.get(position);
-                String pubSelectedViewMore = pubSelected.getPublicationId();
-            }
-        });*/
-
     }
 
     @Override
@@ -159,5 +153,20 @@ public class ViewDetailActivity extends AppCompatActivity {
         intent2.putExtra("cant",cant);
         intent2.putExtra("publicationDescriptionExtra",publicationDescriptionSelected);
         startActivityForResult(intent2,LAUNCH_CREATE_COMMENT_ACTIVITY);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_CREATE_COMMENT_ACTIVITY){
+            if(resultCode == Activity.RESULT_OK){
+
+                //Toast.makeText(this, "onActivityResult resultCode == Activity.RESULT_OK", Toast.LENGTH_LONG).show();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Toast.makeText(this, "onActivityResult resultCode == Activity.RESULT_CANCELED", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
