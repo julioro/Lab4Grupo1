@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.pucp.lab4egb.entities.Comment;
 import com.pucp.lab4egb.entities.Publication;
 
@@ -30,6 +33,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +59,10 @@ public class ViewDetailActivity extends AppCompatActivity {
     String cant="";
     FirebaseAuth mAuth;
     private MenuItem item;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+
+
 
     String publicationIdSelected, publicationDescriptionSelected, publicationDateSelected, publicationUserNameSelected;
 
@@ -80,11 +88,20 @@ public class ViewDetailActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
+
+        StorageReference imageRef = storageRef.child("publications/"+id);
+
         nombre = user.getDisplayName();
+
+
+
 
         TextView pubUserDetailsTextView = findViewById(R.id.pubUserDetailsTextView);
         TextView pubDateDetailsTextView = findViewById(R.id.pubDateDetailsTextView);
         TextView pubDescriptionDetailsTextView = findViewById(R.id.pubDescriptionDetailsTextView);
+        ImageView pubImageView = findViewById(R.id.pubImageView);
+
+
 
         publicationValueEventListener(id);
         buildPublicationRecyclerView();
@@ -93,6 +110,12 @@ public class ViewDetailActivity extends AppCompatActivity {
         pubDateDetailsTextView.setText(publicationDateSelected);
 
         pubDescriptionDetailsTextView.setText(publicationDescriptionSelected);
+
+        Glide.with(this)
+                .load(imageRef)
+                .into(pubImageView);
+
+
     }
 
     public void publicationValueEventListener(final String id_w){

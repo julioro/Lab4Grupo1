@@ -19,14 +19,16 @@
 
     <ImageView
         android:id="@+id/pubImageView"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
+        android:layout_width="205dp"
+        android:layout_height="170dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/pubCommentsDetailsTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.31"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pubUserDetailsTextView"
+        app:layout_constraintVertical_bias="1.0"
         tools:srcCompat="@drawable/ic_add_photo" />
 
     <TextView

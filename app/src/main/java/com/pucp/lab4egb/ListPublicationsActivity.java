@@ -66,7 +66,11 @@ public class ListPublicationsActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if(user != null){
-            nombre = user.getDisplayName();
+
+            String nombre = user.getDisplayName();
+            String [] nombreCompleto = user.getDisplayName().split("\\s+");
+            String primerNombre = nombreCompleto[0];
+            Log.d("NOMBRE", primerNombre);
             correo = user.getEmail();
         } else {
             Toast.makeText(this, "tostada", Toast.LENGTH_SHORT).show();
