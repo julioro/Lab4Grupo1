@@ -67,7 +67,7 @@ public class ListPublicationsActivity extends AppCompatActivity {
 
         if(user != null){
 
-            String nombre = user.getDisplayName();
+            nombre = user.getDisplayName();
             String [] nombreCompleto = user.getDisplayName().split("\\s+");
             String primerNombre = nombreCompleto[0];
             Log.d("NOMBRE", primerNombre);
