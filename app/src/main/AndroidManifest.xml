@@ -4,6 +4,7 @@
     package="com.pucp.lab4egb">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -22,14 +23,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ListPublicationsActivity">
 
         </activity>
+        <activity android:name=".ListPublicationsActivity">
+        </activity>
+
         <activity android:name=".MainActivity" />
         <activity
             android:name=".CreatePublicationActivity"
-            android:parentActivityName=".ListPublicationsActivity" />
+            android:parentActivityName=".ListPublicationsActivity" >
+
+
+
+        </activity>
     </application>
 
 </manifest>
